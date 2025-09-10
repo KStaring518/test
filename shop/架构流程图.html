@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商系统架构图 - 最终修复版</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+        .description {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4CAF50;
+            font-size: 1.1rem;
+        }
+        .diagram-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .mermaid-box {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .mermaid {
+            overflow: auto;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            min-height: 500px;
+        }
+        .legend {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .legend h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .color-box {
+            width: 25px;
+            height: 25px;
+            margin-right: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .note {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #ffc107;
+        }
+        .note h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+        .code-example {
+            background: #273238;
+            color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example h3 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eaeaea;
+            color: #7f8c8d;
+        }
+        .issues-fixed {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4CAF50;
+        }
+        .issues-fixed h2 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        .issues-fixed ul {
+            padding-left: 20px;
+        }
+        .issues-fixed li {
+            margin-bottom: 10px;
+        }
+        .error-highlight {
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #f44336;
+        }
+        .error-highlight h3 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .diagram-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>电商系统架构流程图</h1>
+            <p>最终修复版 - 解决所有语法错误</p>
+        </header>
+        
+        <div class="error-highlight">
+            <h3>检测到的错误</h3>
+            <p>在您提供的代码中发现了以下问题：</p>
+            <ul>
+                <li>HTML标签不完整 - <code>&lt;html</code> 缺少关闭括号</li>
+                <li>Mermaid子图语法错误 - 使用了不正确的符号</li>
+                <li>节点连接错误 - 使用了不存在的节点标识符</li>
+                <li>注释语法错误 - 使用了不正确的注释符号</li>
+                <li>代码格式错误 - 存在未闭合的标签和错误嵌套</li>
+            </ul>
+        </div>
+        
+        <div class="issues-fixed">
+            <h2>已修复的关键问题</h2>
+            <ul>
+                <li><strong>HTML语法错误</strong>：修复了不完整的HTML标签</li>
+                <li><strong>子图语法错误</strong>：使用正确的 <code>subgraph ID[Title]</code> 格式</li>
+                <li><strong>节点连接错误</strong>：修正了箭头和连接线语法，使用有效节点标识符</li>
+                <li><strong>注释语法</strong>：使用正确的Mermaid注释符号 <code>%%</code></li>
+                <li><strong>代码结构</strong>：修复了所有未闭合的标签和错误嵌套</li>
+            </ul>
+        </div>
+
+        <div class="description">
+            <p>此图表展示了电商系统的完整架构，包括前端页面、API通信、后端处理、数据库交互以及支付回调流程。</p>
+        </div>
+
+        <div class="diagram-container">
+            <div class="mermaid-box">
+                <div class="mermaid">
+                    flowchart TB
+                    %% 定义节点样式
+                    classDef frontend fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px;
+                    classDef controller fill:#E3F2FD,stroke:#1565C0,stroke-width:2px;
+                    classDef service fill:#EDE7F6,stroke:#5E35B1,stroke-width:2px;
+                    classDef repository fill:#FFEBEE,stroke:#C62828,stroke-width:2px;
+                    classDef database fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px;
+                    classDef payment fill:#FFFDE7,stroke:#F9A825,stroke-width:2px;
+                    classDef resource fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px;
+                    classDef auth fill:#E0F2F1,stroke:#00695C,stroke-width:2px;
+
+                    %% 主流程
+                    A[用户浏览器] --> B[前端 Views 页面\nHome/Products/Payment/Orders]
+                    B --> C[前端 API 模块\nfrontend/src/api/*]
+                    C -->|HTTP(JSON/Multipart)| D[后端 Controller\nProduct/Order/Alipay]
+
+                    D --> E[Service 业务层\n事务/校验/聚合]
+                    E --> F[Repository/JPA]
+                    F --> G[(MySQL 数据库)]
+
+                    %% 支付回调子图
+                    subgraph PaymentCallback[支付回调处理]
+                        H[支付宝网关] --> I[异步回调\n/alipay/notify]
+                        I --> D
+                        I -.->|返回success| H
+        
+                        H --> J[同步回调\n/alipay/return/redirect]
+                        J --> B
+                    end
+
+                    %% 静态资源子图
+                    subgraph StaticResources[静态资源处理]
+                        K[上传控制器 Upload] --> L[uploads/ 静态目录]
+                        B -->|图片URL| L
+                    end
+
+                    %% 鉴权子图
+                    subgraph Authentication[认证与授权]
+                        B -->|携带JWT| D
+                        D -->|签发/校验| M[JWT 令牌管理器]
+                        M --> N[用户认证服务]
+                    end
+
+                    %% 应用样式
+                    class B,C frontend;
+                    class D,K controller;
+                    class E,N service;
+                    class F repository;
+                    class G database;
+                    class H,I,J payment;
+                    class L resource;
+                    class M auth;
+                </div>
+            </div>
+            
+            <div class="legend">
+                <h2>图例说明</h2>
+                <div class="legend-item">
+                    <div class="color-box" style="background-color: #E8F5E9;"></div>
+                    <div>
+                        <strong>前端组件 (Frontend)</strong>
+                        <p>用户界面和API调用模块</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box" style="background-color: #E3F2FD;"></div>
+                    <div>
+                        <strong>控制器层 (Controller)</strong>
+                        <p>接收请求并返回响应</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box" style="background-color: #EDE7F6;"></div>
+                    <div>
+                        <strong>业务服务层 (Service)</strong>
+                        <p>处理业务逻辑和事务</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box" style="background-color: #FFEBEE;"></div>
+                    <div>
+                        <strong>数据访问层 (Repository)</strong>
+                        <p>数据库操作和持久化</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box" style="background-color: #FFF3E0;"></div>
+                    <div>
+                        <strong>数据库 (Database)</strong>
+                        <p>MySQL数据存储</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box" style="background-color: #FFFDE7;"></div>
+                    <div>
+                        <strong>支付网关 (Payment)</strong>
+                        <p>支付宝支付处理</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="code-example">
+            <h3>修复的关键代码部分</h3>
+            <pre><code>// 修正前的错误代码：
+&lt;html
+subgraph PaymentCallback[支付回馈处理]
+#[支付宝请求] --> [【异步回馈\n/Alipsy/netify】
+I --> 0
+I --->|返回success|
+end
+
+// 修正后的正确代码：
+subgraph PaymentCallback[支付回调处理]
+  H[支付宝网关] --> I[异步回调\n/alipay/notify]
+  I --> D
+  I -.->|返回success| H
+end
+
+// 修正前的错误注释：
+// 注释内容
+% 注释内容
+
+// 修正后的正确注释：
+%% 注释内容</code></pre>
+        </div>
+
+        <div class="note">
+            <h3>使用说明</h3>
+            <p>将上述代码复制到HTML文件中，直接在浏览器中打开即可查看修复后的架构图。图表展示了完整的电商系统架构，包括前端、后端、数据库、支付回调等组件及其交互关系。</p>
+            <p>图表使用不同颜色区分各组件类型，并包含完整的图例说明，帮助理解系统架构。</p>
+        </div>
+
+        <footer>
+            <p>电商系统架构图 | 最终修复版 | 使用Mermaid 10.6.1</p>
+        </footer>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                curve: 'basis',
+                htmlLabels: true
+            },
+            securityLevel: 'loose'
+        });
+    </script>
+</body>
+</html>

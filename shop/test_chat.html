@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天接口测试</title>
+</head>
+<body>
+    <h1>聊天接口测试</h1>
+    
+    <div>
+        <h3>1. 测试快捷问题接口</h3>
+        <button onclick="testQuickQuestions()">测试快捷问题</button>
+        <div id="quickQuestionsResult"></div>
+    </div>
+    
+    <div>
+        <h3>2. 测试创建会话接口</h3>
+        <input type="text" id="userId" placeholder="用户ID" value="18">
+        <input type="text" id="userType" placeholder="用户类型" value="USER">
+        <button onclick="testCreateSession()">测试创建会话</button>
+        <div id="createSessionResult"></div>
+    </div>
+    
+    <div>
+        <h3>3. 测试发送消息接口</h3>
+        <input type="text" id="sessionId" placeholder="会话ID">
+        <input type="text" id="message" placeholder="消息内容" value="你好">
+        <button onclick="testSendMessage()">测试发送消息</button>
+        <div id="sendMessageResult"></div>
+    </div>
+
+    <script>
+        // 模拟JWT token（实际使用时需要从登录接口获取）
+        const mockToken = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2MzQ1Njc4NzQsImV4cCI6MTYzNDY1NDI3NH0.test';
+        
+        async function testQuickQuestions() {
+            try {
+                const response = await fetch('http://localhost:8080/api/chat/quick-questions', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${mockToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.text();
+                document.getElementById('quickQuestionsResult').innerHTML = `
+                    <p>状态码: ${response.status}</p>
+                    <p>响应: ${result}</p>
+                `;
+            } catch (error) {
+                document.getElementById('quickQuestionsResult').innerHTML = `
+                    <p style="color: red;">错误: ${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testCreateSession() {
+            try {
+                const userId = document.getElementById('userId').value;
+                const userType = document.getElementById('userType').value;
+                
+                const response = await fetch(`http://localhost:8080/api/chat/session?userId=${userId}&userType=${userType}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${mockToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.text();
+                document.getElementById('createSessionResult').innerHTML = `
+                    <p>状态码: ${response.status}</p>
+                    <p>响应: ${result}</p>
+                `;
+                
+                if (response.ok) {
+                    const data = JSON.parse(result);
+                    if (data.data) {
+                        document.getElementById('sessionId').value = data.data;
+                    }
+                }
+            } catch (error) {
+                document.getElementById('createSessionResult').innerHTML = `
+                    <p style="color: red;">错误: ${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testSendMessage() {
+            try {
+                const sessionId = document.getElementById('sessionId').value;
+                const message = document.getElementById('message').value;
+                
+                if (!sessionId) {
+                    alert('请先创建会话');
+                    return;
+                }
+                
+                const response = await fetch('http://localhost:8080/api/chat/send', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${mockToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        sessionId: sessionId,
+                        userId: 18,
+                        userType: 'USER',
+                        context: '/test'
+                    })
+                });
+                
+                const result = await response.text();
+                document.getElementById('sendMessageResult').innerHTML = `
+                    <p>状态码: ${response.status}</p>
+                    <p>响应: ${result}</p>
+                `;
+            } catch (error) {
+                document.getElementById('sendMessageResult').innerHTML = `
+                    <p style="color: red;">错误: ${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

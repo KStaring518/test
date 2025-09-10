@@ -1,0 +1,33 @@
+### 测试地址API
+
+# 1. 先登录获取token
+# @name login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "123456"
+}
+
+###
+
+# 提取token
+@auth_token = {{login.response.body.token}}
+
+###
+
+# 2. 获取地址列表
+GET http://localhost:8080/api/address/list
+Authorization: Bearer {{auth_token}}
+
+###
+
+# 3. 创建地址
+POST http://localhost:8080/api/address/create
+Authorization: Bearer {{auth_token}}
+Content-Type: application/x-www-form-urlencoded
+
+receiverName=测试用户&phone=13800138000&province=广东省&city=深圳市&district=南山区&detail=科技园路123号&isDefault=false
+
+###

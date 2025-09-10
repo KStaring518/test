@@ -1,0 +1,28 @@
+### 测试支付流程和跳转功能
+
+### 1. 创建测试订单
+POST {{base}}/orders
+Content-Type: application/json
+Authorization: Bearer {{user_token}}
+
+{
+  "addressId": 1,
+  "cartItemIds": [1, 2]
+}
+
+### 2. 测试支付页面跳转
+# 访问支付页面，应该能看到订单信息和支付方式选择
+GET http://localhost:3000/payment?orderNo=TEST_ORDER_123&totalAmount=100
+
+### 3. 测试订单状态检查API
+GET {{base}}/orders/TEST_ORDER_123
+Authorization: Bearer {{user_token}}
+
+### 4. 测试支付宝重定向页面
+GET {{base}}/api/alipay/redirect?charset=UTF-8&out_trade_no=TEST_ORDER_123&method=alipay.trade.page.pay.return&total_amount=100.00&sign=test_sign&trade_status=TRADE_SUCCESS
+
+### 预期结果：
+# 1. 支付页面应该显示订单信息和支付方式选择
+# 2. 选择支付宝支付后，应该打开新窗口并启动轮询
+# 3. 支付完成后，应该自动跳转到订单页面
+# 4. 如果自动跳转失败，应该显示手动检查按钮

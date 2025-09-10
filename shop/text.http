@@ -1,0 +1,61 @@
+### 探活
+GET http://localhost:8080/api/products/public/list?page=1&size=2
+
+### 登录 admin
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+> {% client.global.set("ADMIN_TOKEN", JSON.parse(response.body).data.token); %}
+
+### 登录 merchant
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "merchant",
+  "password": "123456"
+}
+
+> {% client.global.set("MERCHANT_TOKEN", JSON.parse(response.body).data.token); %}
+
+### 登录 testuser
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "123456"
+}
+
+> {% client.global.set("USER_TOKEN", JSON.parse(response.body).data.token); %}
+
+### 新增地址
+POST http://localhost:8080/api/address/create?receiverName=张三&phone=13800138000&province=上海市&city=上海市&district=浦东新区&detail=世纪大道1号&isDefault=true
+Authorization: Bearer {{USER_TOKEN}}
+
+> {% client.global.set("ADDR_ID", JSON.parse(response.body).data.id); %}
+
+### 加购物车
+POST http://localhost:8080/api/cart/add
+Authorization: Bearer {{USER_TOKEN}}
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2
+}
+
+###
+
+# curl -X POST http://localhost:8080/api/logistics/simulate-update
+#  -H "Authorization: Bearer <TOKEN>"
+POST http://localhost:8080/api/logistics/simulate-update
+Authorization: Bearer <TOKEN>
+
+###
+

@@ -1,0 +1,21 @@
+### 快速功能测试
+
+# 1. 测试默认查询 - 所有商品
+GET http://localhost:8080/api/products/public/list?page=1&size=5
+
+###
+
+# 2. 测试分类筛选 - 选择分类ID=4（巧克力分类）
+GET http://localhost:8080/api/products/public/list?page=1&size=5&categoryId=4
+
+###
+
+# 3. 测试关键词搜索 - 搜索"巧克力"
+GET http://localhost:8080/api/products/public/list?page=1&size=5&keyword=巧克力
+
+###
+
+# 4. 测试排序 - 价格从低到高
+GET http://localhost:8080/api/products/public/list?page=1&size=5&sort=price_asc
+
+###

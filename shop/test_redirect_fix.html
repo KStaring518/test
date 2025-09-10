@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>测试支付重定向</title>
+</head>
+<body>
+    <h1>测试支付重定向修复</h1>
+    <p>点击下面的按钮测试支付完成后的自动跳转：</p>
+    
+    <button onclick="testRedirect()">测试支付完成跳转</button>
+    <button onclick="testWithOpener()">测试带父窗口的跳转</button>
+    
+    <div id="result" style="margin-top: 20px; padding: 10px; background: #f0f0f0;"></div>
+    
+    <script>
+        function testRedirect() {
+            // 模拟支付完成后的重定向
+            const orderNo = 'TEST_' + Date.now()
+            const frontendUrl = 'http://localhost:3000/orders?paid=1&orderNo=' + orderNo
+            
+            // 打开新窗口测试
+            const newWindow = window.open('', '_blank', 'width=600,height=400')
+            
+            const html = `
+                <!DOCTYPE html>
+                <html>
+                <head><meta charset="UTF-8"><title>支付完成</title></head>
+                <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f5f5f5;">
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 400px; margin: 0 auto;">
+                        <h2 style="color: #67C23A; margin-bottom: 20px;">✅ 支付完成</h2>
+                        <p style="color: #606266; margin: 10px 0;">订单号：${orderNo}</p>
+                        <p style="color: #409EFF; margin: 20px 0;">正在跳转到订单页面...</p>
+                        <div style="margin: 20px 0;">
+                            <a href="${frontendUrl}" style="display: inline-block; padding: 10px 20px; background: #409EFF; color: white; text-decoration: none; border-radius: 4px; margin: 5px;">查看订单</a>
+                            <button onclick="window.close()" style="padding: 10px 20px; background: #909399; color: white; border: none; border-radius: 4px; margin: 5px; cursor: pointer;">关闭窗口</button>
+                        </div>
+                    </div>
+                    <script>
+                        console.log('开始处理支付完成跳转...');
+                        console.log('订单号:', '${orderNo}');
+                        console.log('前端URL:', '${frontendUrl}');
+                        
+                        // 延迟跳转
+                        setTimeout(function() {
+                            console.log('执行自动跳转...');
+                            window.location.href = '${frontendUrl}';
+                        }, 2000);
+                    </script>
+                </body>
+                </html>
+            `
+            
+            newWindow.document.write(html)
+            newWindow.document.close()
+            
+            document.getElementById('result').innerHTML = '已打开测试窗口，2秒后应该自动跳转到订单页面'
+        }
+        
+        function testWithOpener() {
+            // 测试带父窗口的情况
+            const orderNo = 'TEST_' + Date.now()
+            const frontendUrl = 'http://localhost:3000/orders?paid=1&orderNo=' + orderNo
+            
+            const newWindow = window.open('', '_blank', 'width=600,height=400')
+            
+            const html = `
+                <!DOCTYPE html>
+                <html>
+                <head><meta charset="UTF-8"><title>支付完成</title></head>
+                <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f5f5f5;">
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-width: 400px; margin: 0 auto;">
+                        <h2 style="color: #67C23A; margin-bottom: 20px;">✅ 支付完成</h2>
+                        <p style="color: #606266; margin: 10px 0;">订单号：${orderNo}</p>
+                        <p style="color: #409EFF; margin: 20px 0;">正在跳转到订单页面...</p>
+                    </div>
+                    <script>
+                        console.log('开始处理支付完成跳转...');
+                        console.log('订单号:', '${orderNo}');
+                        console.log('前端URL:', '${frontendUrl}');
+                        
+                        try {
+                            if (window.opener && !window.opener.closed) {
+                                console.log('检测到父窗口，发送消息并跳转父窗口...');
+                                window.opener.postMessage({ type: 'ALIPAY_PAYMENT_SUCCESS', orderNo: '${orderNo}' }, '*');
+                                window.opener.location.href = '${frontendUrl}';
+                                setTimeout(function() {
+                                    try { window.close(); } catch(e) { console.log('关闭窗口失败:', e); }
+                                }, 1000);
+                            } else {
+                                console.log('没有父窗口，直接跳转当前窗口');
+                                setTimeout(function() {
+                                    window.location.href = '${frontendUrl}';
+                                }, 2000);
+                            }
+                        } catch(e) {
+                            console.log('跳转失败，使用备用方案:', e);
+                            setTimeout(function() {
+                                window.location.href = '${frontendUrl}';
+                            }, 2000);
+                        }
+                    </script>
+                </body>
+                </html>
+            `
+            
+            newWindow.document.write(html)
+            newWindow.document.close()
+            
+            document.getElementById('result').innerHTML = '已打开测试窗口，应该自动跳转父窗口到订单页面'
+        }
+    </script>
+</body>
+</html>
