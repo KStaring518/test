@@ -1,0 +1,1 @@
+import{a as e}from"./_plugin-vue_export-helper-BDJoutlP.js";const d=()=>e.get("/address/list"),r=s=>e.post("/address/create",s),a=s=>e.post("/address/delete",{id:s}),o=s=>e.put("/address/update",s),u=s=>e.post("/address/set-default",s);export{r as c,a as d,d as g,u as s,o as u};

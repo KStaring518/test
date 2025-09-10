@@ -1,0 +1,1 @@
+import{a as e}from"./_plugin-vue_export-helper-BDJoutlP.js";const s=r=>e.post("/order/create",r),o=r=>e.get("/order/my",{params:r}),c=r=>e.get(`/order/${r}`),a=r=>e.post(`/order/${r}/cancel`),n=r=>e.post(`/order/${r}/confirm`),d=()=>e.get("/order/summary"),g=r=>e.get(`/logistics/shipment/${r}/tracks`);export{d as a,a as b,n as c,c as d,g as e,s as f,o as g};

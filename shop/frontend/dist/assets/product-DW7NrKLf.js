@@ -1,0 +1,1 @@
+import{a as e}from"./_plugin-vue_export-helper-BDJoutlP.js";const s=t=>e.get("/products/public/list",{params:t}),o=()=>e.get("/categories/public/tree"),c=t=>e.get(`/products/public/${t}`);export{s as a,c as b,o as g};

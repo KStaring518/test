@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/48890ff5-df2e-45ea-a733-fa2e0d1ce65b/console.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/chat_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/fix_merchant_data.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/shop db.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/update_knowledge_base.sql" dialect="MySQL" />
+  </component>
+</project>
