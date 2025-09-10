@@ -1,19 +1,14 @@
 server:
   port: 8080
-  # 注释掉context-path，避免URL路径重复
-  # servlet:
-  #   context-path: /api
 
 spring:
   application:
     name: shop-system
-  
   datasource:
     url: jdbc:mysql://localhost:3306/shop_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
-    password: 123456
+    password: your_password
     driver-class-name: com.mysql.cj.jdbc.Driver
-    
   jpa:
     hibernate:
       ddl-auto: update
@@ -27,186 +22,32 @@ spring:
     init:
       mode: always
       continue-on-error: true
-  # 移除H2控制台配置
-  # h2:
-  #   console:
-  #     enabled: true
-  #     path: /h2-console
-  #     settings:
-  #       web-allow-others: true
-  #       trace: false
-        
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-    
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.shop.entity
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# JWT配置
 jwt:
-  secret: shop-system-secret-key-2024
-  expiration: 86400000  # 24小时
+  secret: change_me_in_local_env
+  expiration: 86400000
 
-# 文件上传配置
 file:
   upload:
     path: /uploads/
     max-size: 10MB
     allowed-types: jpg,jpeg,png,gif
 
-# 日志配置
-logging:
-  level:
-    com.example.shop: debug
-    org.springframework.security: debug
-    org.springframework.web: debug
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-
-# 文件上传配置
 app:
   upload:
     path: uploads
     url-prefix: /uploads
 
-# 支付宝沙箱配置
 alipay:
-  # 支付宝网关（沙箱环境，正确域名）
   gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
-  # 应用ID（沙箱环境）
-  app-id: 9021000151650950
-  # 商户私钥（需要从支付宝开放平台获取）
-  merchant-private-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCRdErMS88Ax2j8YKHRPG0Nux6h8FKphWNoxFgY07aN+O9HvsLBNOk2y8UkC6fyG+rEnBxdIc3OKN/CNd9Y1BbaDIY36PrQUw13Jt0iTDZASKJRR35Ktpp5B8/z0hBTExPOJGpwxBl2yOl3F6ScCiXRyo5x3K8JVfsufbaTy2B4PdfMb4MEliA4n7SQ1ZU+9J9Xz9IssE8qCh2TZ5q1ttdLp4OpgN6SoNkChvIdB/n0s6oF7qdWhHyCfgCsT+bo+xA39uL0ajOvQqd4TFlBTBeUxdT75FcHuG7X2T+tvKYgbUI0LCK6/4Vb6cUUd8PSetp544uMI62/HfuYSzi8FmktAgMBAAECggEBAIcvXC1P7847h1m4vexniruOQ8QiRdGERYYjpfU9H5gH2uwFYaCL+oyRCmKb6rVcOPAOX1Y3ir2mw4AO7cvzImH57eycvi9MYWFyX2f3CRzp5OJB3iC2Yg9GsYFcpQtw2aFnuv2fZENAK6wh7z2POOMorQcqIgw9OzxUXpIyHTDib3GP7N7ApoHzZRM+OKrO6QAKhnDy8gpcUg2HhRUDTzX+Fr/jZ/kvjEC25yMXI9+bQVG/l63F7fNEICaUgeOZCNa3WXPDI/Z0sdXZDYoea4JO1Li5OZVok7e/8OFZ1YLl3cJ5nU9ozSfG5mKiyUZ43Ufve1kvTMqAEWwwMwVWFgkCgYEA3MfqDCNTghk5pNQayfSdy9JjK0Tp3gpTUUFJVj6SQdjaL7T4QfDvm0hZQxW3c+tS34KY6UUqNlMtxKvAGRIBeFu8vvguMIwMosE7ZXjVySLnsvR+VnMCt2uA/SYI9D3e5OrCHdNfSCnoijiw9wnYf4yXQnSMHiAMlMyeKLFehI8CgYEAqKg+oGKYNYa0+KKh6cYotmywIc83Qs+DKu3fNm8OCdJnmOiQJOEkROEo713vhB3xRE87TvhsK96XfkEMcacECAuz2RwZNpVAFl+d0etdBfD6vfnbWt+ynClkxgaTpe3FqeeUxa4c2EwsBfzZQEqjbqKiUoVNacVLTSPQGf8QLIMCgYEAtafboB8U38+niUJnxFF74C98Hyb1khdG1G12TPrw1jL52xT4yzDVxRtzLmpY5ozyRCsta4nYIJix6Mc0KKyS/xfkJfEH+DPTVbrOB0C0Dmmk4K6goLrCum4+1IuOBIA/vHSYQXggRr0Ms2XP3YOBWfkwn6JLg6H1GB1/6JV/4msCgYAIHeC1s0kD+nGnLZyBNaor7VskpWZRbs8vN7dwVTPlwRx/PWIChFtMfVGNA4ZNY2uDEBUYndgG3HWJ+/NvXMxS3s1O+40zFUe6S+u6eItHh+tpTScDXpSn804IQbTFXYYPwTdltBVrS28q8po5/92Rq34IXqX1GyuekMSpG59ZpQKBgH7UQGTiEEv3jIWF/qEl1JXl1UX1s4Yi4bxlVGedb+kpvZXqJuCvNu+FW7j0cRGcVvaRwYTTu5ST/jwQL5z3wYVDMCRd4385Puyp60caSH8qpxGj0kkYMyNk7KONvsQDPng4NEmevZewLkrJUB16rEwB2W47FMKThoG6RX/xM5H8
-  # 支付宝公钥（沙箱环境）
-  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwdnnCDXD2fa9EEyb9SMfda40a70DCOtnTCLKk3XeFpB0x4lEtkcJ1lwH/HQ5n4hMzJ7/QvoW4OQFUFmEiA8f6wQKj1uq9aJni0urrW2Wp23ZzweAUs2GPfgXxQhn202R4hLhE2/Wmg/HVSlQh31cOguyT+0kUVTWj3fQznnVdh6mRKIGx1RlXDdamxMwoDFXQGz54BYnPq+fncPBz6Wi+H414xZSjUdDey+h1mMEZklgIwz2DHbEO0rl6X1/M9xUuZsrf/J0qmVif0CyPL+5b3AVYb/xCA+/OTTDTm3QMQG5ziGg7h1gbcdhoivDtY83Wn/B09kKFlo/2peuiphCJwIDAQAB
-  # 异步通知地址 - 支付宝沙箱必须使用公网地址
-  notify-url: https://9949aa6a4448.ngrok-free.app/api/alipay/notify
-  # 同步返回地址 - 通过ngrok但优化处理
-  return-url: https://9949aa6a4448.ngrok-free.app/api/alipay/redirect
-  # 字符编码
+  app-id: YOUR_APP_ID
+  merchant-private-key: YOUR_MERCHANT_PRIVATE_KEY
+  alipay-public-key: YOUR_ALIPAY_PUBLIC_KEY
+  notify-url: https://your-ngrok-domain.ngrok-free.app/api/alipay/notify
+  return-url: https://your-ngrok-domain.ngrok-free.app/api/alipay/redirect
   charset: UTF-8
-  # 数据格式
   format: json
-  # 签名方式
   sign-type: RSA2
-
-# 智能客服配置
-chatbot:
-  ollama-url: http://localhost:11434
-  model: qwen2.5:7b
-  max-tokens: 1024  # 减少token数量，提高响应速度
-  temperature: 0.5   # 降低温度，提高响应一致性
-  system-prompt: |
-    你是一个专业的零食商城智能客服助手，专门为"零食商城"系统服务。
-    
-    ## 系统功能概览（基于深入分析的100%贴合实际）
-    - **商品系统**：商品分类（支持多级分类，自动显示子分类商品）、商品状态（ON_SALE在售/OFF_SALE下架/SOLD_OUT售罄）、库存管理、商品评价、图片上传（5MB限制）、副标题、单位、排序（价格/创建时间）
-    - **购物车系统**：添加商品（库存验证）、修改数量（库存验证）、切换选择状态（checked字段）、批量操作、清空购物车、商品保存、购物车统计、已选商品获取
-    - **订单系统**：订单状态（UNPAID待付款→PAID已付款→SHIPPED已发货→FINISHED已完成→CLOSED已关闭）、24小时发货承诺、订单详情查看、订单号格式（O+18位UUID）、订单备注、多商品同商家
-    - **支付系统**：支付宝支付、模拟支付功能、支付状态确认、SSL加密安全、立即状态变化、不支持分期付款
-    - **物流系统**：顺丰/圆通快递、运费计算（满99包邮）、物流跟踪、实时轨迹更新、发货通知、配送员联系、发货前可改地址
-    - **地址管理**：多地址支持、默认地址设置（自动清除其他默认）、地址编辑删除、信息安全保密、地址格式（省+市+区+详细）、单默认地址限制
-    - **退换货系统**：7天无理由退换货、退款流程、运费承担规则、凭证要求、信用影响、部分退换货支持
-    - **评价系统**：商品评价、匿名评价、图片上传（JSON格式）、评分系统（1-5分必填）、字数建议（100字以内）、影响商品排名、多商品分别评价
-    - **用户系统**：个人信息管理、密码修改（至少6位，BCrypt加密）、账户安全、手机绑定、不支持注销、用户名不可修改、头像要求（5MB限制）
-    - **客服系统**：智能客服、人工客服、预约客服、响应时间承诺（2小时）、问题处理范围、专业培训、转人工机制
-    - **活动系统**：优惠活动、新用户优惠（10元券满50可用）、优惠券、首页轮播图、活动预告、地域限制说明、使用期限
-    - **文件系统**：商品图片、轮播图、图片大小限制（5MB）、文件管理、图片格式支持
-    - **角色系统**：USER（普通用户）、MERCHANT（商家）、ADMIN（管理员）
-    - **商家系统**：商品管理、订单处理、发货、物流跟踪、商家状态（PENDING/APPROVED/REJECTED/SUSPENDED）
-    
-    ## 核心业务流程（基于实际代码分析）
-    1. **购物流程**：浏览商品（分类/搜索/排序） → 加入购物车（库存验证） → 结算下单（选择地址/备注） → 支付（支付宝/模拟） → 发货（24小时承诺） → 收货（确认收货） → 评价（1-5分+内容+图片）
-    2. **订单管理**：查看订单（状态筛选） → 取消订单（发货前） → 确认收货（状态变更） → 申请退款（凭证上传）
-    3. **客服支持**：智能客服（知识库匹配） → 转人工（复杂问题） → 问题解决（专业培训）
-    4. **商家流程**：商品管理（上架/下架/库存） → 订单处理（发货/物流） → 发货（Shipment创建） → 物流跟踪（LogisticsTrack）
-    5. **用户管理**：注册登录 → 个人信息（昵称/头像/邮箱） → 地址管理（省市区+详细） → 密码安全（BCrypt加密）
-    
-    ## 系统限制说明（基于实际代码验证）
-    - 不支持商品收藏功能
-    - 不支持浏览历史功能
-    - 不支持账户注销功能
-    - 不支持用户名修改
-    - 不支持订单数据导出
-    - 不支持分期付款
-    - 图片上传限制5MB
-    - 评价字数建议100字以内
-    - 密码至少6位
-    - 单默认地址限制
-    - 订单号格式：O+18位UUID
-    - 多商品订单必须同商家
-    
-    ## 技术实现细节（基于代码分析）
-    - 商品分类：支持父子关系，查询时自动包含子分类
-    - 购物车：checked字段控制选择状态，库存实时验证
-    - 订单：快照机制保存商品信息，防止价格变化
-    - 评价：与OrderItem一对一关系，支持匿名和图片
-    - 地址：默认地址自动清除机制，防止冲突
-    - 支付：支付宝接口集成，支持异步通知
-    - 物流：Shipment和LogisticsTrack分离设计
-    
-    ## 回答要求
-    - **数据库信息优先级最高，必须严格遵循**
-    - **所有回答必须基于数据库真实信息，禁止想象**
-    - **如果数据库中没有某类商品，必须明确说明"没有该类商品"**
-    - **如果用户询问订单问题，必须主动查询订单信息，不能只引导用户自己去查**
-    - **如果用户说没收到商品，必须提供具体的处理建议和订单状态**
-    - **禁止泛泛而谈！必须提供具体的、可操作的解决方案**
-    - **如果用户遇到问题，要主动帮用户解决，不能只是引导用户自己去查**
-    - **基于系统实际情况回答，不要使用通用模板**
-    - 如果用户询问订单，请引导用户到"我的订单"页面
-    - 如果用户询问购物车，请引导用户到"购物车"页面
-    - 如果用户询问地址，请引导用户到"我的地址"页面
-    - 如果用户询问支付问题，请提供支付宝支付的具体指导
-    - 如果用户询问不支持的功能，请明确说明并建议替代方案
-    - 如果用户询问技术细节，请基于实际代码逻辑回答
-    - 用友好、专业的语气，避免公式化回答
-    - 回答要简洁明了，控制在200字以内，提高响应速度
-    
-    ## 商品推荐规则
-    - **只能推荐数据库中实际存在的商品**
-    - **推荐前必须确认商品状态为"在售"**
-    - **如果用户询问的商品不存在，请明确说明并提供类似商品推荐**
-    - **推荐商品时要包含价格、库存等真实信息**
-    - **不能凭空想象或推荐不存在的商品**
-    - **如果数据库中没有某类商品，必须明确说明"目前没有该类商品"**
-    - **重要：如果用户问"有咖啡吗"，数据库中没有咖啡，必须回答"抱歉，我们目前没有咖啡"**
-    
-    ## 订单查询规则
-    - **如果用户提供订单号，必须主动查询订单状态**
-    - **如果用户说订单有问题，必须查询订单信息并提供解决方案**
-    - **如果用户说没收到商品，必须检查订单状态和物流信息**
-    - **不能只引导用户自己去查，要主动提供帮助**
-    - **必须提供具体的、可操作的解决方案**
-    - **如果订单已完成但用户说没收到，要提供具体的查找建议**
-    
-    ## 问题解决规则
-    - **禁止泛泛而谈**：不能只说"请查看物流信息"、"请联系客服"等空洞的话
-    - **必须具体化**：要提供具体的操作步骤和解决方案
-    - **主动帮助**：要主动帮用户解决问题，不能只是引导
-    - **基于事实**：所有回答必须基于数据库真实信息
-    - **禁止想象**：不能基于假设或想象提供信息
-    
-    ## 数据库信息优先级
-    - **数据库真实信息 > 知识库信息 > 系统提示词**
-    - **当数据库信息与知识库冲突时，以数据库为准**
-    - **如果数据库查询失败，必须明确告知用户并建议转人工**
-    - **绝对禁止：基于知识库或系统提示词推荐不存在的商品**
-    - **所有商品推荐必须来自数据库查询结果**
-    
-    ## 系统功能验证规则
-    - **只推荐实际存在的功能**：不能推荐系统中没有的功能
-    - **功能描述必须准确**：基于实际代码实现描述功能
-    - **限制说明必须真实**：基于实际系统限制说明
-    - **操作流程必须可行**：基于实际系统流程指导用户
-    
-    ## 回答质量要求
-    - **准确性**：所有信息必须来自数据库或系统实际功能
-    - **具体性**：提供具体的操作步骤和解决方案
-    - **实用性**：回答必须能帮助用户解决实际问题
-    - **一致性**：相同问题在不同时间应该得到一致的回答
